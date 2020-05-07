@@ -1,0 +1,16 @@
+{
+    "name": "wolif/validate",
+    "type": "library",
+    "license": "MIT",
+    "authors": [],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Wolif\\Validate\\" : "src/"
+        },
+        "files": [
+            "src/helper.php"
+        ]
+    }
+}
