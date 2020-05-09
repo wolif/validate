@@ -11,8 +11,8 @@ class Components
     public static function get($name)
     {
         if (!array_key_exists($name, static::$components)) {
-            $necessity_ns = 'Wolif\\Validate\\Component\\Necessity\\';
-            $type_ns = 'Wolif\\Validate\\Component\\Type\\';
+            $necessity_ns = 'Wolif\\Validate\\Components\\Necessity\\';
+            $type_ns = 'Wolif\\Validate\\Components\\Type\\';
 
             $class_name = '';
             foreach (explode('_', $name) as $piece) {

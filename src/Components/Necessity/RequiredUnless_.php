@@ -1,6 +1,6 @@
 <?php
 
-namespace Wolif\Validate\Necessity;
+namespace Wolif\Validate\Components\Necessity;
 
 use Wolif\Validate\Components\Component;
 use Wolif\Validate\Result;

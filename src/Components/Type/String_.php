@@ -1,6 +1,6 @@
 <?php
 
-namespace Wolif\Validate\Type;
+namespace Wolif\Validate\Components\Type;
 
 use InvalidArgumentException;
 use Wolif\Validate\Components\Component;

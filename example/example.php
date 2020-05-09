@@ -1,14 +1,13 @@
 <?php
 
-use Wolif\Validate\Processing;
 use Wolif\Validate\Validator;
 
 require_once "../vendor/autoload.php";
 
 
 $input = [
-    'int'       => 1,
-    'int1'      => 12,
+    'int'       => 9,
+    'int1'      => 8,
     'int2'      => 23,
     'timestamp' => time(),
     'number'    => '1',
@@ -37,26 +36,30 @@ $input = [
 ];
 
 $validate_rule = [
-    'int'   => [
-        'required', //<=> ['required'],
-        'int', //<=> ['int'],
-        ['min', 1],
-        ['max', 10],
-        ['in', [1,2,3,4,5,6,7,8,9,10]],
-        ['cmpGt', 'int1']
-    ], // <=>   'int' => 'required|int|min:1|max:10|in:1,2,3,4,5,6,7,8,9,10|cmpGt:int1',
+    // 'int'   => [
+    //     'required', //<=> ['required'],
+    //     'int', //<=> ['int'],
+    //     ['gte', 1],
+    //     ['lte', 10],
+    //     ['in', [1,2,3,4,5,6,7,8,9,10]],
+    //     ['cmpGt', 'int1']
+    // ], // <=>   
+    'int' => 'required|int|gte:1|lte:10|in:1,2,3,4,5,6,7,8,9,10|cmpGt:int1',
+    'int1' => 'required',
 ];
 
 
-$validate_hint = [
-    'int' => [
-        'required' => 'param [int] is necessary',
-        'int'      => 'param [int] must a int value',
-        'min'      => 'param [int] must >= [value]',
-        'max'      => 'param [int] must <= [value]',
-        'in'       => 'param [int] value must in [value]',
-        'cmpGt'    => 'param [int] must >= param[value]',
-    ],
-];
+// $validate_hint = [
+//     'int' => [
+//         'required' => 'param [int] is necessary',
+//         'int'      => 'param [int] must a int value',
+//         'gte'      => 'param [int] must >= [value]',
+//         'lte'      => 'param [int] must <= [value]',
+//         'in'       => 'param [int] value must in [value]',
+//         'cmpGt'    => 'param [int] must >= param[value]',
+//     ],
+// ];
 
-Validator::v($input, $validate_rule, $validate_hint);
+Validator::v($input, $validate_rule);
+
+print_r(Validator::lastResults());

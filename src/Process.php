@@ -61,7 +61,7 @@ class Process
     private function exec($field, $input)
     {
         $necessity = Components::get(array_shift($this->necessity));
-        $result = $necessity::confirm($field, $input, ...$this->necessity);
+        $result = $necessity->confirm($field, $input, ...$this->necessity);
         if ($result->code  != Result::SUCCESS) {
             return $result;
         }

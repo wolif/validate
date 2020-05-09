@@ -1,6 +1,6 @@
 <?php
 
-namespace Wolif\Validate\Type;
+namespace Wolif\Validate\Components\Type;
 
 use Wolif\Validate\Components\Component;
 use Wolif\Validate\Result;
@@ -20,7 +20,7 @@ class Int_ extends Component
     {
         list($value) = $params;
         if ($input[$field] > $value) {
-            Result::success();
+            return Result::success();
         }
 
         return Result::failed("param [{$field}] must > {$value}", 'gt');
@@ -30,7 +30,7 @@ class Int_ extends Component
     {
         list($value) = $params;
         if ($input[$field] >= $value) {
-            Result::success();
+            return Result::success();
         }
 
         return Result::failed("param [{$field}] must >= {$value}", 'gte');
@@ -40,7 +40,7 @@ class Int_ extends Component
     {
         list($value) = $params;
         if ($input[$field] < $value) {
-            Result::success();
+            return Result::success();
         }
 
         return Result::failed("param [{$field}] must < {$value}", 'lt');
@@ -50,7 +50,7 @@ class Int_ extends Component
     {
         list($value) = $params;
         if ($input[$field] <= $value) {
-            Result::success();
+            return Result::success();
         }
 
         return Result::failed("param [{$field}] must <= {$value}", 'lte');

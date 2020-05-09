@@ -46,6 +46,10 @@ class Validator
             }
         }
 
+        // print_r($input_use);
+        // print_r($this->processes);
+        // die;
+
         foreach ($this->processes as $field => $process) {
             $result = $process->execute($field, $input_use);
             if ($result->code == Result::FAILED) {
@@ -53,6 +57,7 @@ class Validator
                     $result->hint = $this->hints[$hint_name];
                 }
             }
+            $this->result[$field] = $result;
         }
         return $this->result;
     }
@@ -72,5 +77,10 @@ class Validator
         }
 
         return static::$validator->set($rules, $hints)->validate($input);
+    }
+
+    public static function lastResults()
+    {
+        return static::$validator->lastResult();
     }
 }

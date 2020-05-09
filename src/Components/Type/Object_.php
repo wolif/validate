@@ -1,6 +1,6 @@
 <?php
 
-namespace Wolif\Validate\Type;
+namespace Wolif\Validate\Components\Type;
 
 use Wolif\Validate\Components\Component;
 use Wolif\Validate\Result;
