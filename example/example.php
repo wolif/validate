@@ -1,5 +1,8 @@
 <?php
 
+use Wolif\Validate\Components\Type\Int_;
+use Wolif\Validate\Components\Type\String_;
+use Wolif\Validate\Result;
 use Wolif\Validate\Validator;
 
 require_once "../vendor/autoload.php";
@@ -12,6 +15,7 @@ $input = [
     'timestamp' => time(),
     'number'    => '1',
     'string'    => '{"a":1}',
+    'string1'   => '<div>',
     'email'     => 'abcd',//'xyz@example.com',
     'datetime'  => strtotime(time()),
     'datetime1' => '2020-04-01 12:34:56',
@@ -43,11 +47,14 @@ $validate_rule = [
     //     ['lte', 10],
     //     ['in', [1,2,3,4,5,6,7,8,9,10]],
     //     ['cmpGt', 'int1']
-    // ], // <=>   
+    // ], // <=>
     'int' => 'required|int|gte:1|lte:10|in:1,2,3,4,5,6,7,8,9,10|cmpGt:int1',
     'int1' => 'required|int',
+    'int2' => 'required|int|equal:22',
+    'int3' => 'sometimes',
     'email' => 'required|string|format:email',
     'string' => 'required|string|json:a,b',
+    'string1' => 'required|string|format:<>',
     'o1.b' => 'required',
 ];
 
@@ -62,6 +69,16 @@ $validate_rule = [
 //         'cmpGt'    => 'param [int] must >= param[value]',
 //     ],
 // ];
+
+Int_::extends('equal', function ($field, $input, ...$params) {
+    list($value) = $params;
+    if ($input[$field] == $value) {
+        return Result::success();
+    }
+    return Result::failed("param [{$field}] must = {$value}", 'equal');
+});
+
+String_::setFormat('<>', '/\<.*\>/');
 
 Validator::v($input, $validate_rule);
 

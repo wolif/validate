@@ -31,7 +31,7 @@ class Process
         $process = array_shift($tmp);
 
         //necessity default: sometimes
-        if (in_array($process[0], Enum::necessities())) {
+        if (array_key_exists($process[0], Components::necessities())) {
             $this->necessity = $process;
             $process         = array_shift($tmp);
         }
@@ -48,7 +48,7 @@ class Process
             $process = array_shift($tmp);
         }
         //type default: any
-        if (in_array($process[0], Enum::types())) {
+        if (array_key_exists($process[0], Components::types())) {
             $this->type = $process[0];
         }
         

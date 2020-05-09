@@ -13,7 +13,7 @@ class Number_ extends Component
             return Result::success();
         }
         
-        return Result::failed("param [{$field}] must be an integer", 'number');
+        return Result::failed("param [{$field}] must be a number", 'number');
     }
 
     public function min($field, $input, ...$params)
@@ -96,7 +96,7 @@ class Number_ extends Component
     {
         list($another_field) = $params;
         if (!$this->exists($another_field, $input)) {
-            return Result::failed("param [{$another_field}] must exists and it must be an integer", 'cmpGt');
+            return Result::failed("param [{$another_field}] must exists and it must be a number", 'cmpGt');
         }
 
         if ($input[$field] > $input[$another_field]) {
@@ -110,7 +110,7 @@ class Number_ extends Component
     {
         list($another_field) = $params;
         if (!$this->exists($another_field, $input)) {
-            return Result::failed("param [{$another_field}] must exists and it must be an integer", 'cmpGte');
+            return Result::failed("param [{$another_field}] must exists and it must be a number", 'cmpGte');
         }
 
         if ($input[$field] >= $input[$another_field]) {
@@ -124,7 +124,7 @@ class Number_ extends Component
     {
         list($another_field) = $params;
         if (!$this->exists($another_field, $input)) {
-            return Result::failed("param [{$another_field}] must exists and it must be an integer", 'cmpLt');
+            return Result::failed("param [{$another_field}] must exists and it must be a number", 'cmpLt');
         }
 
         if ($input[$field] < $input[$another_field]) {
@@ -138,7 +138,7 @@ class Number_ extends Component
     {
         list($another_field) = $params;
         if (!$this->exists($another_field, $input)) {
-            return Result::failed("param [{$another_field}] must exists and it must be an integer", 'cmpLte');
+            return Result::failed("param [{$another_field}] must exists and it must be a number", 'cmpLte');
         }
 
         if ($input[$field] >= $input[$another_field]) {

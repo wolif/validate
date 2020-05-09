@@ -29,7 +29,7 @@ class String_ extends Component
             }
             foreach ($params[0] as $key) {
                 if (!array_key_exists($key, $data)) {
-                    return Result::failed("param [{$field}] json string need field [{$key}]", 'json');
+                    return Result::failed("param [{$field}] json need field [{$key}]", 'json');
                 }
             }
         }
@@ -70,7 +70,10 @@ class String_ extends Component
                 . "(1\d{2}|2[0-4]\d|25[0-5]|[1-9]\d|\d)\."
                 . "(1\d{2}|2[0-4]\d|25[0-5]|[1-9]\d|\d)\."
                 . "(1\d{2}|2[0-4]\d|25[0-5]|[1-9]\d|\d)$#",
-        'email' => "/^(\w)+(\.\w+)*@(\w)+((\.\w{2,3}){1,3})$/",
+        'email'    => "/^(\w)+(\.\w+)*@(\w)+((\.\w{2,3}){1,3})$/",
+        'date'     => "/^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",
+        'time'     => "/^(20|21|22|23|[0-1]\d):[0-5]\d:[0-5]\d$/",
+        'datetime' => "/^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])\s+(20|21|22|23|[0-1]\d):[0-5]\d:[0-5]\d$/",
     ];
 
     public static function setFormat($name, $regex, $cover = true)

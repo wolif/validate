@@ -1,6 +1,8 @@
+    extendable: component extension & method extension in type component
+
     validate processing
     *    0.confirm the value & type to validate, 
-    *    1.necessity validation(default sometimes)
+    *    1.necessity validation(default [sometimes])
          2.ignored values validation(can be omitted)
     *    3.type validation(default type [any])
          4.validate the value
