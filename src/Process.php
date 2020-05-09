@@ -50,9 +50,8 @@ class Process
         //type default: any
         if (in_array($process[0], Enum::types())) {
             $this->type = $process[0];
-            $process    = array_shift($tmp);
         }
-
+        
         foreach ($tmp as $process) {
             $this->processes[] = $process;
         }

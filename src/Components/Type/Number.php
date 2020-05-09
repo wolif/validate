@@ -16,6 +16,16 @@ class Number_ extends Component
         return Result::failed("param [{$field}] must be an integer", 'number');
     }
 
+    public function min($field, $input, ...$params)
+    {
+        return $this->gte($field, $input, ...$params);
+    }
+
+    public function max($field, $input, ...$params)
+    {
+        return $this->lte($field, $input, ...$params);
+    }
+
     public function gt($field, $input, ...$params)
     {
         list($value) = $params;

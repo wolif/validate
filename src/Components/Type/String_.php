@@ -17,6 +17,26 @@ class String_ extends Component
         return Result::failed("param [{$field}] must be an string", 'string');
     }
 
+    public function json($field, $input, ...$params)
+    {
+        if (null == ($data = json_decode($input[$field], true))) {
+            return Result::failed("param [{$field}] json format necessary", 'json');
+        }
+
+        if ($params) {
+            if (is_string($params[0])) {
+                $params[0] = explode(',', $params[0]);
+            }
+            foreach ($params[0] as $key) {
+                if (!array_key_exists($key, $data)) {
+                    return Result::failed("param [{$field}] json string need field [{$key}]", 'json');
+                }
+            }
+        }
+
+        return Result::success();
+    }
+
     public function sizeMin($field, $input, ...$params)
     {
         list($min) = $params;
@@ -45,18 +65,30 @@ class String_ extends Component
         return Result::failed("param [{$field}] format error", 'regex');
     }
 
-    private $formats = [
-        'ipv4' => '',
-        'email' => '',
+    private static $formats = [
+        'ipv4' => "#^(1\d{2}|2[0-4]\d|25[0-5]|[1-9]\d|[1-9])\."
+                . "(1\d{2}|2[0-4]\d|25[0-5]|[1-9]\d|\d)\."
+                . "(1\d{2}|2[0-4]\d|25[0-5]|[1-9]\d|\d)\."
+                . "(1\d{2}|2[0-4]\d|25[0-5]|[1-9]\d|\d)$#",
+        'email' => "/^(\w)+(\.\w+)*@(\w)+((\.\w{2,3}){1,3})$/",
     ];
+
+    public static function setFormat($name, $regex, $cover = true)
+    {
+        if (array_key_exists($name, static::$formats) && !$cover) {
+            return;
+        }
+        static::$formats[$name] = $regex;
+    }
+
     public function format($field, $input, ...$params)
     {
         list($regType) = $params;
-        if (!array_key_exists($regType, $this->formats)) {
+        if (!array_key_exists($regType, static::$formats)) {
             throw new InvalidArgumentException("format [{$regType}] not defined");
         }
 
-        return $this->regex($field, $input, $this->formats[$regType]);
+        return $this->regex($field, $input, static::$formats[$regType]);
     }
 
     public function in($field, $input, ...$params)

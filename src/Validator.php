@@ -32,6 +32,7 @@ class Validator
         foreach ($rules as $field => $rule) {
             $this->processes[$field] = new Process($rule);
         }
+
         return $this;
     }
 
@@ -46,9 +47,6 @@ class Validator
             }
         }
 
-        // print_r($input_use);
-        // print_r($this->processes);
-        // die;
 
         foreach ($this->processes as $field => $process) {
             $result = $process->execute($field, $input_use);

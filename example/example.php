@@ -11,8 +11,8 @@ $input = [
     'int2'      => 23,
     'timestamp' => time(),
     'number'    => '1',
-    'string'    => 's',
-    'email'     => 'xyz@example.com',
+    'string'    => '{"a":1}',
+    'email'     => 'abcd',//'xyz@example.com',
     'datetime'  => strtotime(time()),
     'datetime1' => '2020-04-01 12:34:56',
     'datetime2' => '2020-01-23 12:34:56',
@@ -45,7 +45,10 @@ $validate_rule = [
     //     ['cmpGt', 'int1']
     // ], // <=>   
     'int' => 'required|int|gte:1|lte:10|in:1,2,3,4,5,6,7,8,9,10|cmpGt:int1',
-    'int1' => 'required',
+    'int1' => 'required|int',
+    'email' => 'required|string|format:email',
+    'string' => 'required|string|json:a,b',
+    'o1.b' => 'required',
 ];
 
 

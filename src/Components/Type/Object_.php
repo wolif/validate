@@ -13,7 +13,7 @@ class Object_ extends Component
             return Result::failed("param [{$field}] must be an object", 'object');
         }
 
-        if (array_keys($input[$field]) != range(0, count($input[$field]))) {
+        if (array_keys($keys = $input[$field]) != array_keys($keys)) {
             return Result::success();
         }
         

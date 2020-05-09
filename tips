@@ -28,6 +28,8 @@
     *   type
             any
             int
+                min: x                              value >= x
+                max: x                              value <= x
                 lt: x                               value < x
                 lte: x                              value <= x
                 gt: x                               value > x
@@ -39,6 +41,8 @@
                 cmpLt: y                            value < value(y)
                 cmpLte: y                           value <= value(y)
             number
+                min: x                              value >= x
+                max: x                              value <= x
                 lt: x                               value < x
                 lte: x                              value <= x
                 gt: x                               value > x
@@ -50,6 +54,8 @@
                 cmpLt: y                            value < value(y)
                 cmpLte: y                           value <= value(y)
             string
+                json                                value with json format necessary
+                json: x, y, z                       json format with field [x, y, z...]
                 sizeMin: x                          strlen(value) >= x
                 sizeMax: x                          strlen(value) <= x
                 regex: x                            /x/.match(value) == true
