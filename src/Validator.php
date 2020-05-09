@@ -18,6 +18,8 @@ class Validator
     public function set($rules, $hints)
     {
         $this->init();
+
+        //format the customized hints
         foreach ($hints as $filed => $hint) {
             if (is_string($hint)) {
                 $this->hints[$filed] = $hint;
@@ -40,6 +42,7 @@ class Validator
     {
         $this->result = [];
 
+        //resolve the field-value pairs will be validate 
         $input_use = [];
         foreach ($this->processes as $field => $process) {
             if (wd_array_key_exists($field, $input)) {
@@ -47,10 +50,11 @@ class Validator
             }
         }
 
-
+        //execute the validations
         foreach ($this->processes as $field => $process) {
             $result = $process->execute($field, $input_use);
             if ($result->code == Result::FAILED) {
+                //if the customized hint defined, show it
                 if (array_key_exists($hint_name = "{$field}.{$result->rule_name}", $this->hints)) {
                     $result->hint = $this->hints[$hint_name];
                 }

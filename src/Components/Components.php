@@ -6,6 +6,9 @@ use InvalidArgumentException;
 
 class Components
 {
+    const necessity = 'necessity';
+    const type = 'type';
+
     const ns_necessity = 'Wolif\\Validate\\Components\\Necessity\\';
     const ns_type      = 'Wolif\\Validate\\Components\\Type\\';
 
@@ -56,23 +59,44 @@ class Components
         return static::$components[$name];
     }
 
-    public static function setNecessityComponent($name, Component $component, $cover = true)
+    public static function set($type, $name, $component, $cover = true)
+    {
+        switch ($type) {
+            case Components::necessity:
+                static::setNecessityComponent($name, $component, $cover);
+            break;
+            case Components::type:
+                static::setTypeComponent($name, $component, $cover);
+            break;
+            default:break;
+        }
+    }
+
+    public static function setNecessityComponent($name, $component, $cover = true)
     {
         if (array_key_exists($name, static::$necessities) && !$cover) {
             return;
         }
 
-        static::$necessities[$name] = get_class($component);
-        static::$components[$name] = $component;
+        if (is_string($component) && class_exists($component)) {
+            static::$necessities[$name] = $component;
+        } elseif (is_object($component) && $component instanceof Component) {
+            static::$necessities[$name] = get_class($component);
+            static::$components[$name] = $component;
+        }
     }
 
-    public static function setTypeComponent($name, Component $component, $cover = true)
+    public static function setTypeComponent($name, $component, $cover = true)
     {
         if (array_key_exists($name, static::$types) && !$cover) {
             return;
         }
 
-        static::$types[$name] = get_class($component);
-        static::$components[$name] = $component;
+        if (is_string($component) && class_exists($component)) {
+            static::$types[$name] = $component;
+        } else {
+            static::$types[$name] = get_class($component);
+            static::$components[$name] = $component;
+        }
     }
 }
