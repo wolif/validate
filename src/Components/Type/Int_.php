@@ -18,12 +18,22 @@ class Int_ extends Component
 
     public function min($field, $input, ...$params)
     {
-        return $this->gte($field, $input, ...$params);
+        list($value) = $params;
+        if ($input[$field] >= $value) {
+            return Result::success();
+        }
+
+        return Result::failed("param [{$field}] must >= {$value}", 'min');
     }
 
     public function max($field, $input, ...$params)
     {
-        return $this->lte($field, $input, ...$params);
+        list($value) = $params;
+        if ($input[$field] <= $value) {
+            return Result::success();
+        }
+
+        return Result::failed("param [{$field}] must <= {$value}", 'max');
     }
 
     public function gt($field, $input, ...$params)

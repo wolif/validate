@@ -15,7 +15,7 @@ $input = [
     'timestamp' => time(),
     'number'    => '1',
     'string'    => '{"a":1}',
-    'string1'   => '<div>',
+    'string1'   => '<div>asdf</div>',
     'email'     => 'abcd',//'xyz@example.com',
     'datetime'  => strtotime(time()),
     'datetime1' => '2020-04-01 12:34:56',
@@ -54,23 +54,26 @@ $validate_rule = [
     'int3' => 'sometimes',
     'email' => 'required|string|format:email',
     'string' => 'required|string|json:a,b',
-    'string1' => 'required|string|format:<>',
+    'string1' => 'required|string|format:<div>',
     'o1.b' => 'required',
+    'o1.a.*' => 'required|int|min:4|max:10',
 ];
 
 
-// $validate_hint = [
-//     'int' => [
-//         'required' => 'param [int] is necessary',
-//         'int'      => 'param [int] must a int value',
-//         'gte'      => 'param [int] must >= [value]',
-//         'lte'      => 'param [int] must <= [value]',
-//         'in'       => 'param [int] value must in [value]',
-//         'cmpGt'    => 'param [int] must >= param[value]',
-//     ],
-// ];
+$validate_hint = [
+    // 'int' => [
+    //     'required' => 'param [int] is necessary',
+    //     'int'      => 'param [int] must a int value',
+    //     'gte'      => 'param [int] must >= [value]',
+    //     'lte'      => 'param [int] must <= [value]',
+    //     'in'       => 'param [int] value must in [value]',
+    //     'cmpGt'    => 'param [int] must >= param[value]',
+    // ],
+    'int2.equal' => 'error int2.equal',
+    'o1.a.*.min' => 'error o1.a.*.min , value must >= 4',
+];
 
-Int_::extends('equal', function ($field, $input, ...$params) {
+Int_::extends('equal', function ($field, $input, ...$params) {//exp. even so, "equal" is an ridiculous validation rule
     list($value) = $params;
     if ($input[$field] == $value) {
         return Result::success();
@@ -78,8 +81,8 @@ Int_::extends('equal', function ($field, $input, ...$params) {
     return Result::failed("param [{$field}] must = {$value}", 'equal');
 });
 
-String_::setFormat('<>', '/\<.*\>/');
+String_::setFormat('<div>', '/^\<div\>.*\<\/div\>$/');
 
-Validator::v($input, $validate_rule);
+Validator::v($input, $validate_rule, $validate_hint);
 
 print_r(Validator::lastResults());
