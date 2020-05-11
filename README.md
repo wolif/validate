@@ -1,4 +1,6 @@
-<?php
+# Usage
+
+~~~php
 
 use Wolif\Validate\Components\Type\Int_;
 use Wolif\Validate\Components\Type\String_;
