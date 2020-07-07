@@ -11,33 +11,28 @@ class Result
 
     const QUIT = 10;
 
-    public static function failed($hint, $rule_name = '')
+    private static function result($code, $hint, $rule_name)
     {
         $result = new stdClass();
-        $result->code = static::FAILED;
+        $result->code = $code;
         $result->hint = $hint;
         $result->rule_name = $rule_name;
 
         return $result;
     }
 
+    public static function failed($hint, $rule_name = '')
+    {
+        return static::result(static::FAILED, $hint, $rule_name);
+    }
+
     public static function success($rule_name = '')
     {
-        $result = new stdClass();
-        $result->code = static::SUCCESS;
-        $result->hint = '';
-        $result->rule_name = $rule_name;
-
-        return $result;
+        return static::result(static::SUCCESS, '', $rule_name);
     }
 
     public static function quit($rule_name = '')
     {
-        $result = new stdClass();
-        $result->code = static::QUIT;
-        $result->hint = '';
-        $result->rule_name = $rule_name;
-
-        return $result;
+        return static::result(static::QUIT, '', $rule_name);
     }
 }
